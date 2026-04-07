@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel数据分析工具</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Segoe UI', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 50%, #ffffff 100%);
+            color: #334155;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 30px 20px; }
+        
+        /* 头部 */
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            padding: 40px 0;
+        }
+        .header h1 { 
+            font-size: 2.8em; 
+            margin-bottom: 15px; 
+            font-weight: 700;
+            background: linear-gradient(90deg, #0ea5e9, #6366f1, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+        }
+        .header p { 
+            color: #64748b; 
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+        
+        /* 上传区域 - 玻璃拟态 */
+        .upload-area { 
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px dashed #cbd5e1;
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+        .upload-area:hover { 
+            border-color: #0ea5e9;
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .upload-area.dragover { 
+            background: rgba(224, 242, 254, 0.8);
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.2);
+        }
+        .upload-icon { 
+            font-size: 4em; 
+            margin-bottom: 20px;
+            filter: drop-shadow(0 4px 6px rgba(14, 165, 233, 0.3));
+        }
+        .upload-area h3 {
+            color: #1e293b;
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .upload-area > p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+        .file-input { display: none; }
+        
+        /* 按钮 - 渐变光泽 */
+        .upload-btn { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        .upload-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 20px 30px -10px rgba(14, 165, 233, 0.5);
+        }
+        .upload-btn:active {
+            transform: translateY(0);
+        }
+        
+        .file-info { 
+            margin-top: 20px; 
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            display: none;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-size: 0.95em;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        /* 分析区域 */
+        .analysis-section { display: none; margin-top: 40px; }
+        .analysis-header { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 28px 32px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.3);
+        }
+        .analysis-header h2 { 
+            font-size: 1.6em; 
+            font-weight: 600;
+        }
+        
+        /* 标签页 */
+        .tabs { 
+            display: flex;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .tab { 
+            flex: 1;
+            padding: 18px;
+            text-align: center;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .tab.active { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            font-weight: 600;
+        }
+        .tab:hover:not(.active) { 
+            background: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+        }
+        
+        /* 内容区 - 纯白卡片 */
+        .tab-content { 
+            display: none;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e2e8f0;
+            border-top: none;
+        }
+        .tab-content.active { display: block; }
+        
+        /* 统计卡片 - 新拟态 */
+        .stats-grid { 
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+        .stat-card { 
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 
+                0 4px 6px -1px rgba(0, 0, 0, 0.05),
+                0 10px 15px -3px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255,255,255,0.8);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #6366f1);
+        }
+        .stat-card:hover { 
+            transform: translateY(-6px);
+            box-shadow: 
+                0 20px 25px -5px rgba(0, 0, 0, 0.08),
+                0 10px 10px -5px rgba(0, 0, 0, 0.02);
+        }
+        .stat-card h3 { 
+            color: #64748b;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .stat-card .value { 
+            font-size: 2.4em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        .stat-card > div:last-child {
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+        
+        /* 数据摘要 */
+        .data-summary { 
+            background: #ffffff;
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+        }
+        .data-summary h3 { 
+            margin-bottom: 20px;
+            color: #1e293b;
+            font-size: 1.3em;
+            font-weight: 600;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e0f2fe;
+        }
+        .summary-item { 
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+            font-size: 1em;
+        }
+        .summary-item:last-child { border-bottom: none; }
+        .summary-item span:first-child { color: #64748b; }
+        .summary-item span:last-child { 
+            font-weight: 600;
+            color: #0ea5e9;
+        }
+        
+        /* 选择器 */
+        .column-selector { 
+            margin-bottom: 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+        .column-selector label { 
+            color: #475569;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+        .column-selector select { 
+            padding: 12px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 0.95em;
+            background: #ffffff;
+            color: #334155;
+            transition: all 0.3s ease;
+            min-width: 180px;
+        }
+        .column-selector select:focus { 
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+            outline: none;
+        }
+        
+        /* 分析按钮 */
+        .analyze-btn { 
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+        .analyze-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* 导出/操作按钮 */
+        .export-btn { 
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.95em;
+            margin-left: 12px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+        .export-btn:hover { 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.4);
+        }
+        
+        /* 图表容器 */
+        .chart-container { 
+            position: relative;
+            height: 420px;
+            margin: 30px 0;
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border: 1px solid #f1f5f9;
+        }
+        
+        /* 数据表格 */
+        .data-table { 
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 20px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            background: #ffffff;
+        }
+        .data-table th, .data-table td { 
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .data-table th { 
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .data-table tr:nth-child(even) { background: #f8fafc; }
+        .data-table tr:hover { background: #e0f2fe; }
+        .data-table td { color: #475569; }
+        .data-table tr:last-child td { border-bottom: none; }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .container { padding: 20px 15px; }
+            .header h1 { font-size: 2em; }
+            .header { padding: 20px 0; }
+            .upload-area { padding: 40px 20px; }
+            .tabs { flex-direction: column; border-radius: 16px; }
+            .tab { border-bottom: 1px solid #e2e8f0; }
+            .tab:last-child { border-bottom: none; }
+            .analysis-header { flex-direction: column; gap: 16px; text-align: center; }
+            .column-selector { flex-direction: column; align-items: stretch; }
+            .column-selector select { width: 100%; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+        
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(#0ea5e9, #6366f1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: linear-gradient(#0284c7, #4f46e5); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Excel数据分析工具</h1>
+            <p>上传Excel文件，自动进行数据分析和可视化</p>
+        </div>
+        
+        <div class="upload-area" id="uploadArea">
+            <div class="upload-icon">📁</div>
+            <h3>拖拽Excel文件到此处或点击上传</h3>
+            <p>支持 .xlsx, .xls 格式</p>
+            <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls">
+            <button class="upload-btn" onclick="document.getElementById('fileInput').click()">选择文件</button>
+            <div class="file-info" id="fileInfo"></div>
+        </div>
+        
+        <div class="analysis-section" id="analysisSection">
+            <div class="analysis-header">
+                <h2>数据分析结果</h2>
+                <div>
+                    <button class="export-btn" onclick="exportToExcel()">导出分析结果</button>
+                    <button class="upload-btn" onclick="resetAnalysis()">重新上传</button>
+                </div>
+            </div>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('overview')">数据概览</button>
+                <button class="tab" onclick="switchTab('statistics')">统计分析</button>
+                <button class="tab" onclick="switchTab('visualization')">数据可视化</button>
+                <button class="tab" onclick="switchTab('details')">详细数据</button>
+            </div>
+            
+            <div id="overview" class="tab-content active">
+                <div class="data-summary" id="dataSummary"></div>
+                <div class="stats-grid" id="statsGrid"></div>
+            </div>
+            
+            <div id="statistics" class="tab-content">
+                <div class="column-selector">
+                    <label>选择分析列：</label>
+                    <select id="columnSelect"></select>
+                    <button class="analyze-btn" onclick="analyzeColumn()">分析</button>
+                </div>
+                <div id="columnAnalysis"></div>
+            </div>
+            
+            <div id="visualization" class="tab-content">
+                <div class="column-selector">
+                    <label>图表类型：</label>
+                    <select id="chartType">
+                        <option value="bar">柱状图</option>
+                        <option value="line">折线图</option>
+                        <option value="pie">饼图</option>
+                        <option value="doughnut">环形图</option>
+                        <option value="radar">雷达图</option>
+                    </select>
+                    <label>X轴：</label>
+                    <select id="xColumn"></select>
+                    <label>Y轴：</label>
+                    <select id="yColumn"></select>
+                    <button class="analyze-btn" onclick="createChart()">生成图表</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="dataChart"></canvas>
+                </div>
+            </div>
+            
+            <div id="details" class="tab-content">
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="dataTable">
+                        <thead id="tableHead"></thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+/* ========== 全局变量 ========== */
+let rawMatrix = [], headers = [], students = [], chartInst = null, radarInst = null;
+
+/* ========== 文件上传 ========== */
+const uploadArea  = document.getElementById('uploadArea');
+const fileInput   = document.getElementById('fileInput');
+const analysisSec = document.getElementById('analysisSection');
+
+uploadArea.addEventListener('click', () => fileInput.click());
+uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
+uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
+uploadArea.addEventListener('drop', e => { e.preventDefault(); uploadArea.classList.remove('dragover'); handleFile(e.dataTransfer.files[0]); });
+fileInput.addEventListener('change', e => handleFile(e.target.files[0]));
+
+function handleFile(file) {
+    if (!file.name.match(/\.(xlsx|xls)$/)) return alert('请上传 Excel 文件');
+    const reader = new FileReader();
+    reader.onload = evt => {
+        try {
+            const wb = XLSX.read(evt.target.result, { type: 'array' });
+            parseData(wb.Sheets[wb.SheetNames[0]]);
+            switchArea('analysis');
+        } catch (e) { alert('解析失败：' + e.message); }
+    };
+    reader.readAsArrayBuffer(file);
+}
+
+/* ========== 数据清洗 ========== */
+function parseData(sheet) {
+    const rng = XLSX.utils.decode_range(sheet['!ref'] || 'A1');
+    rng.s.r = 0; rng.s.c = 0;
+    sheet['!ref'] = XLSX.utils.encode_range(rng);
+    const mat = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+
+    let headRow = 0;
+    for (let i = 0; i < Math.min(10, mat.length); i++) {
+        if (String(mat[i][0]).includes('序号')) { headRow = i; break; }
+    }
+    headers = mat[headRow].map(h => String(h).trim());
+    rawMatrix = mat.slice(headRow + 1).filter(r => r.some(c => c !== ''));
+    students  = rawMatrix.map(row => {
+        const obj = {};
+        headers.forEach((h, i) => { obj[h] = row[i]; });
+        return obj;
+    });
+    buildPage();
+}
+
+/* ========== 页面构建 ========== */
+function buildPage() {
+    document.getElementById('dataSummary').innerHTML = `
+        <h3>数据概览</h3>
+        <div class="summary-item"><span>学生人数：</span><span>${students.length}</span></div>
+        <div class="summary-item"><span>总列数：</span><span>${headers.length}</span></div>
+        <div class="summary-item"><span>课程列数：</span><span>${headers.filter(h => h.includes('-')).length}</span></div>
+    `;
+
+    const course = headers.filter(h => h.includes('-'));
+    let card = '';
+    course.forEach(c => {
+        const scores = students.map(s => Number(s[c])).filter(v => !isNaN(v));
+        if (!scores.length) return;
+        const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2);
+        const max = Math.max(...scores).toFixed(1);
+        const min = Math.min(...scores).toFixed(1);
+        card += `<div class="stat-card"><h3>${c}</h3><div class="value">${avg}</div><div>最高 ${max} · 最低 ${min}</div></div>`;
+    });
+    document.getElementById('statsGrid').innerHTML = card;
+
+    const opts = headers.map(h => `<option value="${h}">${h}</option>`).join('');
+    ['columnSelect', 'xColumn', 'yColumn'].forEach(id => document.getElementById(id).innerHTML = opts);
+
+    renderTable();
+    fillStudentList();
+}
+
+/* ========== 统计分析（按列） ========== */
+function analyzeColumn() {
+    const col = document.getElementById('columnSelect').value;
+    const scores = students.map(s => Number(s[col])).filter(v => !isNaN(v));
+    if (!scores.length) return document.getElementById('columnAnalysis').innerHTML = '该列无数字';
+    const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const max = Math.max(...scores);
+    const min = Math.min(...scores);
+    const std = Math.sqrt(scores.reduce((a, b) => a + Math.pow(b - avg, 2), 0) / scores.length);
+    document.getElementById('columnAnalysis').innerHTML = `
+        <h3>${col} 统计</h3>
+        <div class="stats-grid">
+            <div class="stat-card"><h3>人数</h3><div class="value">${scores.length}</div></div>
+            <div class="stat-card"><h3>平均</h3><div class="value">${avg.toFixed(2)}</div></div>
+            <div class="stat-card"><h3>最高</h3><div class="value">${max}</div></div>
+            <div class="stat-card"><h3>最低</h3><div class="value">${min}</div></div>
+            <div class="stat-card"><h3>标准差</h3><div class="value">${std.toFixed(2)}</div></div>
+        </div>`;
+}
+
+/* ========== 可视化 ========== */
+function createChart() {
+    const type  = document.getElementById('chartType').value;
+    const xCol  = document.getElementById('xColumn').value;
+    const yCol  = document.getElementById('yColumn').value;
+    const labs  = [], vals = [];
+    students.forEach(s => {
+        const x = s[xCol], y = Number(s[yCol]);
+        if (x != null && !isNaN(y)) { labs.push(x); vals.push(y); }
+    });
+    if (!vals.length) return;
+    const ctx = document.getElementById('dataChart');
+    if (chartInst) chartInst.destroy();
+    chartInst = new Chart(ctx, {
+        type,
+        data: {
+            labels: labs.slice(0, 30),
+            datasets: [{ label: yCol, data: vals.slice(0, 30), backgroundColor: '#0ea5e980', borderColor: '#0ea5e9', borderWidth: 2 }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+    });
+}
+
+/* ========== 详细表格 ========== */
+function renderTable() {
+    const head = headers.map(h => `<th>${h}</th>`).join('');
+    const body = students.slice(0, 50).map(s => `<tr>${headers.map(h => `<td>${s[h] ?? ''}</td>`).join('')}</tr>`).join('');
+    document.getElementById('tableHead').innerHTML = `<tr>${head}</tr>`;
+    document.getElementById('tableBody').innerHTML = body + (students.length > 50 ? `<tr><td colspan="${headers.length}">… 还有 ${students.length - 50} 行 …</td></tr>` : '');
+}
+
+/* ========== 标签切换 ========== */
+function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(name).classList.add('active');
+}
+function switchArea(area) {
+    uploadArea.style.display  = area === 'upload' ? 'block' : 'none';
+    analysisSec.style.display = area === 'analysis' ? 'block' : 'none';
+}
+
+/* ========== 导出 ========== */
+function exportToExcel() {
+    const ws = XLSX.utils.json_to_sheet(students);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "学生成绩");
+    XLSX.writeFile(wb, `学生成绩分析_${new Date().toISOString().slice(0, 10)}.xlsx`);
+}
+
+/* ========== 重新上传 ========== */
+function resetAnalysis() {
+    if (chartInst) { chartInst.destroy(); chartInst = null; }
+    if (radarInst) { radarInst.destroy(); radarInst = null; }
+    students = []; rawMatrix = []; headers = [];
+    fileInput.value = '';
+    switchArea('upload');
+}
+
+/* =================================================================
+   逐行分析（学生个人画像）
+================================================================= */
+const studentSelectorHTML = `
+<div class="column-selector" style="margin-top:20px">
+    <label>选择学生：</label>
+    <select id="studentSelect"></select>
+    <button class="analyze-btn" onclick="analyzeStudent()">分析该生</button>
+</div>
+<div id="studentAnalysis"></div>`;
+document.getElementById('statistics').insertAdjacentHTML('beforeend', studentSelectorHTML);
+
+function fillStudentList() {
+    const sel = document.getElementById('studentSelect');
+    sel.innerHTML = students.map((s, i) => `<option value="${i}">${s['姓名']}（${s['学号']}）</option>`).join('');
+}
+
+function analyzeStudent() {
+    const idx = document.getElementById('studentSelect').value;
+    const st = students[idx];
+    if (!st) return;
+
+    const courseCols = headers.filter(h => h.includes('-'));
+    const scores = courseCols.map(c => Number(st[c])).filter(v => !isNaN(v));
+    const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(2);
+    const max = Math.max(...scores).toFixed(1);
+    const min = Math.min(...scores).toFixed(1);
+
+    const rankKey = '学分加权平均成绩';
+    const allScore = students.map(s => Number(s[rankKey])).filter(v => !isNaN(v)).sort((a, b) => b - a);
+    const myScore = Number(st[rankKey]);
+    const rank = allScore.indexOf(myScore) + 1;
+
+    let tableHtml = `
+        <div class="data-summary"><h3>${st['姓名']} 个人成绩画像</h3>
+        <div class="summary-item"><span>个人课程平均：</span><span>${avg}</span></div>
+        <div class="summary-item"><span>最高单科：</span><span>${max}</span></div>
+        <div class="summary-item"><span>最低单科：</span><span>${min}</span></div>
+        <div class="summary-item"><span>班级排名：</span><span>第 ${rank} 名 / ${students.length} 人</span></div>
+        </div>
+        <table class="data-table"><thead><tr><th>课程</th><th>成绩</th></tr></thead><tbody>`;
+    courseCols.forEach(c => {
+        const v = Number(st[c]);
+        tableHtml += `<tr><td>${c}</td><td>${isNaN(v) ? st[c] : v.toFixed(1)}</td></tr>`;
+    });
+    tableHtml += `</tbody></table>
+        <div class="chart-container"><canvas id="radarChart"></canvas></div>`;
+
+    document.getElementById('studentAnalysis').innerHTML = tableHtml;
+
+    const radarCtx = document.getElementById('radarChart');
+    if (radarInst) radarInst.destroy();
+    radarInst = new Chart(radarCtx, {
+        type: 'radar',
+        data: {
+            labels: courseCols.map(c => c.length > 15 ? c.slice(0, 13) + '…' : c),
+            datasets: [{
+                label: st['姓名'] + '成绩',
+                data: courseCols.map(c => Number(st[c]) || 0),
+                backgroundColor: 'rgba(14, 165, 233, 0.2)',
+                borderColor: '#0ea5e9',
+                borderWidth: 2,
+                pointBackgroundColor: '#0ea5e9'
+            }]
+        },
+        options: { responsive: true, maintainAspectRatio: false, scales: { r: { beginAtZero: true, max: 100 } } }
+    });
+}
+</script>
+</body>
+</html>
