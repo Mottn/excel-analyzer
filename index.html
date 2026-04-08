@@ -10,28 +10,26 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --primary: #1e40af;
-            --primary-light: #3b82f6;
-            --primary-dark: #1e3a8a;
+            --primary: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
             --secondary: #0ea5e9;
             --accent: #f59e0b;
             --success: #22c55e;
             --warning: #f59e0b;
             --danger: #ef4444;
             --bg: #f8fafc;
-            --surface: rgba(255, 255, 255, 0.95);
+            --surface: rgba(255, 255, 255, 0.9);
             --text: #1e293b;
             --text-light: #64748b;
             --border: rgba(226, 232, 240, 0.8);
-            --jlu-blue: #1e40af;
-            --jlu-gold: #f59e0b;
         }
         
         body { 
-            font-family: 'Inter', 'Segoe UI', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+            font-family: 'Inter', 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif;
             background: 
-                radial-gradient(ellipse at top left, rgba(30, 64, 175, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at top left, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(14, 165, 233, 0.12) 0%, transparent 50%),
                 linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
             color: var(--text);
             min-height: 100vh;
@@ -40,199 +38,170 @@
         
         .container { max-width: 1400px; margin: 0 auto; padding: 40px 24px; }
         
-        /* 头部 */
         .header { 
             text-align: center; 
-            margin-bottom: 40px;
-            padding: 24px 0;
-            border-bottom: 3px solid var(--jlu-blue);
-        }
-        .header-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-        .header-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--jlu-blue) 0%, var(--primary-light) 100%);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2em;
-            color: white;
-            box-shadow: 0 8px 20px -5px rgba(30, 64, 175, 0.3);
-        }
-        .header-title {
-            text-align: left;
-        }
-        .header-title h1 { 
-            font-size: 1.8em; 
-            font-weight: 700;
-            color: var(--jlu-blue);
-            letter-spacing: 0.02em;
-            margin-bottom: 4px;
-        }
-        .header-title .subtitle {
-            font-size: 1em;
-            color: var(--text-light);
-            font-weight: 500;
+            margin-bottom: 50px;
+            padding: 20px 0;
         }
         .header-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 20px;
-            background: rgba(30, 64, 175, 0.1);
-            border: 1px solid rgba(30, 64, 175, 0.2);
+            padding: 10px 24px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 50px;
-            color: var(--jlu-blue);
-            font-size: 0.85em;
+            color: var(--primary);
+            font-size: 0.9em;
             font-weight: 500;
+            margin-bottom: 20px;
+        }
+        .header h1 { 
+            font-size: 3.2em; 
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+        .header p { 
+            color: var(--text-light);
+            font-size: 1.25em;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
-        /* 文件管理区 */
-        .file-manager {
+        .upload-card {
+            max-width: 600px;
+            margin: 0 auto 50px;
             background: var(--surface);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 28px;
+            padding: 48px;
+            box-shadow: 0 20px 40px -12px rgba(99, 102, 241, 0.15);
+            transition: all 0.4s ease;
         }
-        .file-manager-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        .file-manager h3 {
-            font-size: 1.1em;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .file-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .file-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: rgba(30, 64, 175, 0.08);
-            border: 1px solid rgba(30, 64, 175, 0.15);
-            border-radius: 12px;
-            font-size: 0.9em;
-            color: var(--text);
-        }
-        .file-tag .remove {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: all 0.2s;
-        }
-        .file-tag .remove:hover {
-            background: var(--danger);
-            color: white;
-        }
-        .file-stats {
-            display: flex;
-            gap: 24px;
-            font-size: 0.9em;
-            color: var(--text-light);
-        }
-        .file-stats span {
-            color: var(--jlu-blue);
-            font-weight: 600;
+        .upload-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 30px 60px -15px rgba(99, 102, 241, 0.2);
         }
         
-        /* 上传区 */
-        .upload-section {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-        .upload-card {
-            flex: 1;
-            min-width: 280px;
-            background: var(--surface);
-            backdrop-filter: blur(20px);
-            border: 2px dashed var(--border);
+        .upload-area { 
+            border: 3px dashed #cbd5e1;
             border-radius: 20px;
-            padding: 32px;
+            padding: 60px 40px;
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
+            background: rgba(255, 255, 255, 0.5);
         }
-        .upload-card:hover, .upload-card.dragover {
-            border-color: var(--jlu-blue);
-            background: rgba(30, 64, 175, 0.03);
+        .upload-area:hover, .upload-area.dragover { 
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
         }
-        .upload-card.dragover {
-            box-shadow: inset 0 0 0 3px rgba(30, 64, 175, 0.1);
+        .upload-area.dragover {
+            box-shadow: inset 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
+        
         .upload-icon { 
-            width: 64px;
-            height: 64px;
-            margin: 0 auto 16px;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--jlu-blue) 100%);
-            border-radius: 16px;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
-            color: white;
-            box-shadow: 0 10px 25px -5px rgba(30, 64, 175, 0.3);
+            font-size: 2.5em;
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.4);
         }
-        .upload-card h3 {
+        .upload-area h3 {
             color: var(--text);
-            font-size: 1.2em;
+            font-size: 1.5em;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
-        .upload-card p {
+        .upload-area > p {
             color: var(--text-light);
-            font-size: 0.9em;
-            margin-bottom: 16px;
+            margin-bottom: 28px;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--jlu-blue) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 12px 28px;
+            padding: 16px 40px;
             border: none;
-            border-radius: 12px;
-            font-size: 1em;
+            border-radius: 16px;
+            font-size: 1.1em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px -5px rgba(30, 64, 175, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.5);
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -8px rgba(30, 64, 175, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.6);
         }
+        
+        .file-input { display: none; }
+        
+        .file-info { 
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 16px;
+            display: none;
+            color: var(--success);
+            font-weight: 500;
+        }
+        .file-info.show { display: block; animation: slideDown 0.3s ease; }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .analysis-section { display: none; margin-top: 40px; }
+        .analysis-section.show { display: block; animation: fadeIn 0.5s ease; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-header { 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .section-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .section-title span {
+            color: var(--text-light);
+            font-weight: 400;
+            font-size: 0.6em;
+            margin-left: 12px;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
         .btn-secondary {
             background: white;
             color: var(--text);
@@ -248,71 +217,42 @@
             gap: 8px;
         }
         .btn-secondary:hover {
-            border-color: var(--jlu-blue);
-            color: var(--jlu-blue);
-            background: rgba(30, 64, 175, 0.05);
+            background: var(--bg);
+            border-color: var(--primary);
+            color: var(--primary);
         }
-        .btn-danger {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
+        
+        .btn-accent {
+            background: linear-gradient(135deg, var(--accent) 0%, #f97316 100%);
+            color: white;
             padding: 12px 24px;
-            border: 1px solid rgba(239, 68, 68, 0.2);
+            border: none;
             border-radius: 12px;
             font-size: 0.95em;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
         }
-        .btn-danger:hover {
-            background: var(--danger);
-            color: white;
-        }
-        
-        .file-input { display: none; }
-        
-        /* 分析区域 */
-        .analysis-section { display: none; margin-top: 32px; }
-        .analysis-section.show { display: block; animation: fadeIn 0.5s ease; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .section-header { 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .section-title {
-            font-size: 1.6em;
-            font-weight: 700;
-            color: var(--text);
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
         }
         
         .tabs-container {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            padding: 6px;
-            border-radius: 16px;
-            margin-bottom: 24px;
+            padding: 8px;
+            border-radius: 20px;
+            margin-bottom: 28px;
             display: inline-flex;
             gap: 4px;
             border: 1px solid var(--border);
         }
         .tab {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-size: 0.9em;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-size: 0.95em;
             font-weight: 500;
             color: var(--text-light);
             cursor: pointer;
@@ -321,13 +261,13 @@
             background: transparent;
         }
         .tab:hover {
-            color: var(--jlu-blue);
-            background: rgba(30, 64, 175, 0.05);
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
         }
         .tab.active {
             background: white;
-            color: var(--jlu-blue);
-            box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.1);
+            color: var(--primary);
+            box-shadow: 0 4px 15px -3px rgba(0, 0, 0, 0.1);
             font-weight: 600;
         }
         
@@ -335,24 +275,23 @@
             background: var(--surface);
             backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 28px;
+            border-radius: 24px;
+            padding: 32px;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
         .tab-content { display: none; }
         .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
         
-        /* 统计网格 */
         .stats-grid { 
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-bottom: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
         }
         .stat-card { 
             background: white;
-            padding: 24px;
-            border-radius: 16px;
+            padding: 28px;
+            border-radius: 20px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             transition: all 0.3s ease;
             border: 1px solid var(--border);
@@ -366,87 +305,154 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--jlu-blue), var(--primary-light));
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
         }
         .stat-card:hover { 
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px -10px rgba(30, 64, 175, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.2);
         }
         .stat-header {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         .stat-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3em;
+            font-size: 1.4em;
         }
-        .stat-icon.blue { background: rgba(30, 64, 175, 0.1); color: var(--jlu-blue); }
-        .stat-icon.green { background: rgba(34, 197, 94, 0.1); color: var(--success); }
-        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
-        .stat-icon.purple { background: rgba(139, 92, 246, 0.1); color: #8b5cf6; }
+        .stat-icon.blue { background: rgba(99, 102, 241, 0.1); }
+        .stat-icon.green { background: rgba(34, 197, 94, 0.1); }
+        .stat-icon.orange { background: rgba(245, 158, 11, 0.1); }
+        .stat-icon.purple { background: rgba(139, 92, 246, 0.1); }
         .stat-card h3 { 
             color: var(--text-light);
-            font-size: 0.85em;
+            font-size: 0.9em;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
         .stat-card .value { 
-            font-size: 2.2em;
+            font-size: 2.6em;
             font-weight: 700;
             color: var(--text);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .stat-card .meta {
             color: var(--text-light);
-            font-size: 0.85em;
+            font-size: 0.9em;
         }
         
-        /* 图表网格 */
+        .summary-card { 
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .summary-card h3 { 
+            margin-bottom: 20px;
+            color: var(--text);
+            font-size: 1.2em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .summary-row { 
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1em;
+        }
+        .summary-row:last-child { border-bottom: none; }
+        .summary-row span:first-child { color: var(--text-light); }
+        .summary-row span:last-child { 
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 20px;
-            margin-top: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
         }
         .chart-card {
             background: white;
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 20px;
+            padding: 24px;
             border: 1px solid var(--border);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
         .chart-card h4 {
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: 600;
             color: var(--text);
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .chart-card.full-width {
             grid-column: 1 / -1;
         }
         .chart-wrapper { 
             position: relative;
-            height: 280px;
+            height: 300px;
         }
         .chart-wrapper.tall {
-            height: 360px;
+            height: 400px;
         }
         
-        /* 表格 */
+        .control-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .control-group label { 
+            color: var(--text-light);
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        .control-group select { 
+            padding: 12px 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 0.95em;
+            background: white;
+            color: var(--text);
+            min-width: 200px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .control-group select:focus { 
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            outline: none;
+        }
+        
         .table-wrapper {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
             border: 1px solid var(--border);
@@ -455,18 +461,17 @@
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            font-size: 0.9em;
         }
         .data-table th, .data-table td { 
-            padding: 14px;
+            padding: 16px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
         .data-table th { 
-            background: linear-gradient(135deg, var(--jlu-blue) 0%, var(--primary-dark) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
             font-weight: 600;
-            font-size: 0.8em;
+            font-size: 0.85em;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             position: sticky;
@@ -474,252 +479,236 @@
             z-index: 10;
         }
         .data-table tr:nth-child(even) { background: #f8fafc; }
-        .data-table tr:hover { background: rgba(30, 64, 175, 0.05); }
-        .data-table td { color: var(--text); }
+        .data-table tr:hover { background: rgba(99, 102, 241, 0.05); }
+        .data-table td { color: var(--text); font-size: 0.95em; }
         .data-table tr:last-child td { border-bottom: none; }
         
+        .student-profile {
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid var(--border);
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            color: white;
+            box-shadow: 0 10px 30px -10px rgba(99, 102, 241, 0.4);
+        }
+        .profile-info h3 {
+            font-size: 1.6em;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .profile-info p {
+            color: var(--text-light);
+            font-size: 1em;
+        }
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .profile-stat {
+            text-align: center;
+            padding: 20px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 16px;
+        }
+        .profile-stat .number {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .profile-stat .label {
+            font-size: 0.85em;
+            color: var(--text-light);
+            margin-top: 4px;
+        }
+        
         /* 排名样式 */
-        .rank-1 { color: #f59e0b !important; font-weight: 700; font-size: 1.1em; }
+        .rank-1 { color: #f59e0b !important; font-weight: 700; }
         .rank-2 { color: #94a3b8 !important; font-weight: 700; }
         .rank-3 { color: #b45309 !important; font-weight: 700; }
         
-        /* 控制栏 */
-        .control-bar {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 24px;
-            padding: 16px;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 14px;
-            border: 1px solid var(--border);
-        }
-        .control-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .control-group label { 
-            color: var(--text-light);
-            font-size: 0.85em;
-            font-weight: 500;
-        }
-        .control-group select { 
-            padding: 10px 14px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-size: 0.9em;
-            background: white;
-            color: var(--text);
-            min-width: 160px;
-            cursor: pointer;
-        }
-        .control-group select:focus { 
-            border-color: var(--jlu-blue);
-            outline: none;
-        }
-        
-        /* 响应式 */
         @media (max-width: 768px) {
             .container { padding: 20px 16px; }
-            .header-title h1 { font-size: 1.4em; }
-            .header-icon { width: 48px; height: 48px; font-size: 1.5em; }
-            .upload-section { flex-direction: column; }
+            .header h1 { font-size: 2.2em; }
+            .upload-card { padding: 32px 24px; }
+            .upload-area { padding: 40px 24px; }
+            .section-header { flex-direction: column; align-items: flex-start; }
             .tabs-container { width: 100%; overflow-x: auto; }
-            .tab { padding: 10px 16px; white-space: nowrap; }
+            .tab { padding: 12px 20px; white-space: nowrap; }
             .stats-grid { grid-template-columns: 1fr; }
             .charts-grid { grid-template-columns: 1fr; }
             .chart-card.full-width { grid-column: 1; }
+            .control-bar { flex-direction: column; align-items: stretch; }
+            .control-group { flex-direction: column; align-items: stretch; }
+            .control-group select { width: 100%; }
         }
         
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
         ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(var(--jlu-blue), var(--primary-light));
+            background: linear-gradient(var(--primary), var(--secondary));
             border-radius: 4px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 头部 -->
         <div class="header">
-            <div class="header-logo">
-                <div class="header-icon">🏛️</div>
-                <div class="header-title">
-                    <h1>吉林大学外国语言文化学院</h1>
-                    <div class="subtitle">学情分析系统</div>
-                </div>
-            </div>
-            <div class="header-badge">📚 多文件联合分析</div>
+            <div class="header-badge">✨ 智能数据分析</div>
+            <h1>吉林大学外国语言文化学院学情分析系统</h1>
+            <p>上传 Excel 文件，自动生成可视化分析报告</p>
         </div>
         
-        <!-- 文件管理区 -->
-        <div class="file-manager" id="fileManager" style="display: none;">
-            <div class="file-manager-header">
-                <h3>📁 已导入文件</h3>
-                <button class="btn-danger" onclick="clearAllFiles()">清空全部</button>
-            </div>
-            <div class="file-list" id="fileList"></div>
-            <div class="file-stats">
-                <div>总文件数：<span id="totalFiles">0</span></div>
-                <div>总学生数：<span id="totalStudents">0</span></div>
-                <div>数据时间：<span id="dataTime">-</span></div>
+        <div class="upload-card" id="uploadCard">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📊</div>
+                <h3>拖拽文件到此处</h3>
+                <p>或点击按钮选择 .xlsx / .xls 文件</p>
+                <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls">
+                <button class="btn-primary" onclick="document.getElementById('fileInput').click()">
+                    <span>📁</span> 选择文件
+                </button>
+                <div class="file-info" id="fileInfo"></div>
             </div>
         </div>
         
-        <!-- 上传区 -->
-        <div class="upload-section" id="uploadSection">
-            <div class="upload-card" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon">📂</div>
-                <h3>导入第一个文件</h3>
-                <p>点击或拖拽 Excel 文件开始分析</p>
-                <button class="btn-primary">选择文件</button>
-            </div>
-            <div class="upload-card" id="addFileArea" style="display: none;" onclick="document.getElementById('fileInput').click()">
-                <div class="upload-icon" style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);">➕</div>
-                <h3>继续添加文件</h3>
-                <p>导入更多班级数据进行联合分析</p>
-                <button class="btn-secondary">添加文件</button>
-            </div>
-        </div>
-        
-        <input type="file" id="fileInput" class="file-input" accept=".xlsx,.xls" multiple>
-        
-        <!-- 分析区域 -->
         <div class="analysis-section" id="analysisSection">
             <div class="section-header">
-                <h2 class="section-title">学情分析结果</h2>
+                <h2 class="section-title">分析结果 <span id="fileName"></span></h2>
                 <div class="btn-group">
-                    <button class="btn-secondary" onclick="exportToExcel()">
-                        <span>⬇</span> 导出报告
+                    <button class="btn-secondary" onclick="resetAnalysis()">
+                        <span>↺</span> 重新上传
+                    </button>
+                    <button class="btn-accent" onclick="exportToExcel()">
+                        <span>⬇</span> 导出结果
                     </button>
                 </div>
             </div>
             
             <div class="tabs-container">
-                <button class="tab active" onclick="switchTab('overview', this)">📊 综合概览</button>
-                <button class="tab" onclick="switchTab('classAnalysis', this)">🏫 班级分析</button>
-                <button class="tab" onclick="switchTab('subjectAnalysis', this)">📖 学科分析</button>
-                <button class="tab" onclick="switchTab('studentAnalysis', this)">👤 学生画像</button>
+                <button class="tab active" onclick="switchTab('overview', this)">📊 数据概览</button>
+                <button class="tab" onclick="switchTab('statistics', this)">📈 统计分析</button>
+                <button class="tab" onclick="switchTab('visualization', this)">🎨 可视化</button>
                 <button class="tab" onclick="switchTab('details', this)">📋 详细数据</button>
             </div>
             
             <div class="content-card">
-                <!-- 综合概览 -->
+                <!-- 数据概览 -->
                 <div id="overview" class="tab-content active">
-                    <div class="stats-grid" id="overviewStats"></div>
+                    <div class="summary-card" id="dataSummary"></div>
+                    <div class="stats-grid" id="statsGrid"></div>
+                    
                     <div class="charts-grid">
                         <div class="chart-card full-width">
-                            <h4><span>📈</span> 全院成绩分布趋势</h4>
+                            <h4><span>📈</span> 成绩分布折线图（各分数段人数趋势）</h4>
                             <div class="chart-wrapper tall">
                                 <canvas id="scoreLineChart"></canvas>
                             </div>
                         </div>
                         <div class="chart-card">
-                            <h4><span>🥧</span> 成绩等级占比</h4>
+                            <h4><span>🥧</span> 人数分布图（等级占比）</h4>
                             <div class="chart-wrapper">
                                 <canvas id="gradePieChart"></canvas>
                             </div>
                         </div>
                         <div class="chart-card">
-                            <h4><span>📊</span> 各学科平均分对比</h4>
+                            <h4><span>📊</span> 平均成绩柱状图（各课程对比）</h4>
                             <div class="chart-wrapper">
-                                <canvas id="subjectBarChart"></canvas>
+                                <canvas id="courseBarChart"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 班级分析 -->
-                <div id="classAnalysis" class="tab-content">
-                    <div class="chart-card full-width" style="margin-bottom: 20px;">
-                        <h4><span>📊</span> 各班级成绩分布对比</h4>
+                <!-- 统计分析 -->
+                <div id="statistics" class="tab-content">
+                    <div class="control-bar">
+                        <div class="control-group">
+                            <label>分析列：</label>
+                            <select id="columnSelect"></select>
+                        </div>
+                        <button class="btn-primary" onclick="analyzeColumn()">分析</button>
+                    </div>
+                    <div id="columnAnalysis"></div>
+                    <div class="student-profile">
+                        <div class="control-bar">
+                            <div class="control-group">
+                                <label>选择学生：</label>
+                                <select id="studentSelect"></select>
+                            </div>
+                            <button class="btn-primary" onclick="analyzeStudent()">查看画像</button>
+                        </div>
+                        <div id="studentAnalysis"></div>
+                    </div>
+                </div>
+                
+                <!-- 数据可视化 -->
+                <div id="visualization" class="tab-content">
+                    <div class="control-bar">
+                        <div class="control-group">
+                            <label>图表类型：</label>
+                            <select id="chartType">
+                                <option value="bar">📊 柱状图</option>
+                                <option value="line">📈 折线图</option>
+                                <option value="pie">🥧 饼图</option>
+                                <option value="doughnut">🍩 环形图</option>
+                                <option value="radar">🕸️ 雷达图</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label>X 轴：</label>
+                            <select id="xColumn"></select>
+                        </div>
+                        <div class="control-group">
+                            <label>Y 轴：</label>
+                            <select id="yColumn"></select>
+                        </div>
+                        <button class="btn-primary" onclick="createChart()">生成图表</button>
+                    </div>
+                    <div class="chart-card">
                         <div class="chart-wrapper tall">
-                            <canvas id="classDistChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="charts-grid">
-                        <div class="chart-card">
-                            <h4><span>🏆</span> 班级平均分排名</h4>
-                            <div class="table-wrapper">
-                                <table class="data-table" id="classRankTable">
-                                    <thead><tr><th>排名</th><th>班级</th><th>人数</th><th>平均分</th><th>及格率</th></tr></thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="chart-card">
-                            <h4><span>⚠️</span> 需关注班级</h4>
-                            <div class="table-wrapper">
-                                <table class="data-table" id="warningClassTable">
-                                    <thead><tr><th>班级</th><th>平均分</th><th>不及格率</th><th>状态</th></tr></thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
+                            <canvas id="dataChart"></canvas>
                         </div>
                     </div>
                 </div>
                 
-                <!-- 学科分析 -->
-                <div id="subjectAnalysis" class="tab-content">
-                    <div class="control-bar">
-                        <div class="control-group">
-                            <label>选择学科：</label>
-                            <select id="subjectSelect"></select>
-                        </div>
-                        <button class="btn-primary" onclick="analyzeSubject()">分析</button>
-                    </div>
-                    <div id="subjectDetail"></div>
-                </div>
-                
-                <!-- 学生画像 -->
-                <div id="studentAnalysis" class="tab-content">
-                    <div class="control-bar">
-                        <div class="control-group">
-                            <label>查找学生：</label>
-                            <select id="studentSelect"></select>
-                        </div>
-                        <button class="btn-primary" onclick="showStudentProfile()">查看画像</button>
-                    </div>
-                    <div class="charts-grid">
-                        <div class="chart-card">
-                            <h4><span>🏆</span> 全院前十名</h4>
-                            <div class="table-wrapper">
-                                <table class="data-table" id="top10Table">
-                                    <thead><tr><th>排名</th><th>姓名</th><th>班级</th><th>加权成绩</th></tr></thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="chart-card">
-                            <h4><span>📋</span> 学生详细信息</h4>
-                            <div id="studentDetailCard"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- 详细数据 - 恢复四大功能 -->
+                <!-- 详细数据 - 新增功能 -->
                 <div id="details" class="tab-content">
                     <!-- 班级成绩分布柱状图 -->
-                    <div class="chart-card full-width" style="margin-bottom: 20px;">
+                    <div class="chart-card full-width" style="margin-bottom: 24px;">
                         <h4><span>📊</span> 班级成绩分布柱状图</h4>
-                        <div class="chart-wrapper tall">
-                            <canvas id="detailClassDistChart"></canvas>
+                        <div class="chart-wrapper">
+                            <canvas id="classDistChart"></canvas>
                         </div>
                     </div>
                     
                     <!-- 班级学科平均得分率饼图 -->
-                    <div class="chart-card full-width" style="margin-bottom: 20px;">
+                    <div class="chart-card full-width" style="margin-bottom: 24px;">
                         <h4><span>🥧</span> 班级学科平均得分率饼图</h4>
                         <div class="chart-wrapper">
-                            <canvas id="detailSubjectRateChart"></canvas>
+                            <canvas id="subjectRateChart"></canvas>
                         </div>
                     </div>
                     
                     <!-- 班级重点学生概览 -->
-                    <div class="charts-grid" style="margin-bottom: 20px;">
+                    <div class="charts-grid" style="margin-bottom: 24px;">
                         <div class="chart-card">
                             <h4><span>🏆</span> 班级前五名</h4>
                             <div class="table-wrapper">
@@ -744,9 +733,9 @@
                     <div class="chart-card full-width">
                         <h4><span>📋</span> 完整学生数据</h4>
                         <div class="table-wrapper">
-                            <table class="data-table" id="fullDataTable">
-                                <thead id="fullTableHead"></thead>
-                                <tbody id="fullTableBody"></tbody>
+                            <table class="data-table" id="dataTable">
+                                <thead id="tableHead"></thead>
+                                <tbody id="tableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -757,250 +746,213 @@
 
 <script>
 /* ========== 全局变量 ========== */
-let allStudents = [];
-let allFiles = [];
-let currentHeaders = [];
-let charts = {};
-let detailCharts = {}; // 详细数据页图表
+let rawMatrix = [], headers = [], students = [], chartInst = null, radarInst = null;
+let lineChart = null, pieChart = null, barChart = null;
+let classDistChart = null, subjectRateChart = null;
+let isProcessing = false;
 
-const rankColName = '学分加权平均成绩';
+/* ========== 文件上传 ========== */
+const uploadArea  = document.getElementById('uploadArea');
+const fileInput   = document.getElementById('fileInput');
+const analysisSec = document.getElementById('analysisSection');
+const uploadCard  = document.getElementById('uploadCard');
+const fileInfo    = document.getElementById('fileInfo');
 
-/* ========== 文件上传处理 ========== */
-const fileInput = document.getElementById('fileInput');
-const uploadArea = document.getElementById('uploadArea');
-const addFileArea = document.getElementById('addFileArea');
-const fileManager = document.getElementById('fileManager');
-const analysisSection = document.getElementById('analysisSection');
-
+uploadArea.addEventListener('click', (e) => {
+    if (e.target !== fileInput) fileInput.click();
+});
 uploadArea.addEventListener('dragover', e => { e.preventDefault(); uploadArea.classList.add('dragover'); });
 uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('dragover'));
-uploadArea.addEventListener('drop', e => {
-    e.preventDefault();
-    uploadArea.classList.remove('dragover');
-    if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+uploadArea.addEventListener('drop', e => { 
+    e.preventDefault(); 
+    uploadArea.classList.remove('dragover'); 
+    if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]); 
 });
-
-addFileArea.addEventListener('dragover', e => { e.preventDefault(); addFileArea.classList.add('dragover'); });
-addFileArea.addEventListener('dragleave', () => addFileArea.classList.remove('dragover'));
-addFileArea.addEventListener('drop', e => {
-    e.preventDefault();
-    addFileArea.classList.remove('dragover');
-    if (e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
-});
-
 fileInput.addEventListener('change', e => {
-    if (e.target.files.length) handleFiles(e.target.files);
+    if (e.target.files.length > 0) handleFile(e.target.files[0]);
 });
 
-function handleFiles(files) {
-    const excelFiles = Array.from(files).filter(f => f.name.match(/\.(xlsx|xls)$/));
+function handleFile(file) {
+    if (isProcessing) return;
+    isProcessing = true;
     
-    if (excelFiles.length === 0) {
-        alert('请选择 Excel 文件（.xlsx 或 .xls 格式）');
+    if (!file.name.match(/\.(xlsx|xls)$/)) {
+        alert('请上传 Excel 文件（.xlsx 或 .xls 格式）');
+        isProcessing = false;
         return;
     }
-    
-    let processed = 0;
-    excelFiles.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = evt => {
-            try {
-                const wb = XLSX.read(evt.target.result, { type: 'array' });
-                const data = parseExcelData(wb.Sheets[wb.SheetNames[0]], file.name);
-                
-                if (data) {
-                    if (allStudents.length === 0) {
-                        currentHeaders = data.headers;
-                    }
-                    allStudents = allStudents.concat(data.students);
-                    allFiles.push({ name: file.name, count: data.students.length, time: new Date().toLocaleString() });
-                    
-                    processed++;
-                    if (processed === excelFiles.length) {
-                        updateFileManager();
-                        buildAnalysis();
-                    }
-                }
-            } catch (e) {
-                alert(`文件 ${file.name} 解析失败：${e.message}`);
-            }
-        };
-        reader.readAsArrayBuffer(file);
-    });
+
+    fileInfo.innerHTML = `
+        <strong>✓ 已选择：</strong>${file.name}<br>
+        <small>大小：${(file.size / 1024).toFixed(2)} KB</small>
+    `;
+    fileInfo.classList.add('show');
+
+    const reader = new FileReader();
+    reader.onload = evt => {
+        try {
+            const wb = XLSX.read(evt.target.result, { type: 'array' });
+            parseData(wb.Sheets[wb.SheetNames[0]], file.name);
+        } catch (e) { 
+            alert('解析失败：' + e.message); 
+            isProcessing = false;
+        }
+    };
+    reader.onerror = () => {
+        alert('文件读取失败');
+        isProcessing = false;
+    };
+    reader.readAsArrayBuffer(file);
 }
 
-function parseExcelData(sheet, filename) {
+/* ========== 数据清洗 ========== */
+function parseData(sheet, filename) {
     const ref = sheet['!ref'];
-    if (!ref) return null;
+    if (!ref) {
+        alert('无法读取表格范围');
+        isProcessing = false;
+        return;
+    }
     
     const rng = XLSX.utils.decode_range(ref);
     rng.s.r = 0; rng.s.c = 0;
     sheet['!ref'] = XLSX.utils.encode_range(rng);
     
     const mat = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
-    
+
     let headRow = -1;
     for (let i = 0; i < Math.min(15, mat.length); i++) {
-        const first = String(mat[i][0] || '').trim();
-        if (first.includes('序号') || first === '序号') {
+        const firstCell = String(mat[i][0] || '').trim();
+        if (firstCell.includes('序号') || firstCell === '序号') {
             headRow = i;
             break;
         }
     }
-    if (headRow === -1) headRow = 0;
     
-    const headers = mat[headRow].map(h => String(h || '').trim()).filter(h => h);
-    const rows = mat.slice(headRow + 1).filter(r => r.some(c => c !== ''));
+    if (headRow === -1) {
+        for (let i = 0; i < Math.min(10, mat.length); i++) {
+            if (mat[i].some(c => c !== '' && c !== null && c !== undefined)) {
+                headRow = i;
+                break;
+            }
+        }
+    }
     
-    const students = rows.map((row, idx) => {
-        const obj = { _sourceFile: filename, _rowIndex: idx + 1 };
-        headers.forEach((h, i) => { obj[h] = row[i] !== undefined ? row[i] : ''; });
+    if (headRow === -1 || headRow >= mat.length) {
+        alert('无法识别表格结构，请检查文件格式');
+        isProcessing = false;
+        return;
+    }
+
+    headers = mat[headRow].map(h => String(h || '').trim()).filter(h => h !== '');
+    rawMatrix = mat.slice(headRow + 1).filter(r => r.some(c => c !== '' && c !== null && c !== undefined));
+    
+    students = rawMatrix.map((row, idx) => {
+        const obj = { _rowIndex: idx + 1 };
+        headers.forEach((h, i) => { 
+            obj[h] = row[i] !== undefined ? row[i] : ''; 
+        });
         return obj;
     });
+
+    document.getElementById('fileName').textContent = `- ${filename}`;
+
+    uploadCard.style.display = 'none';
+    analysisSec.classList.add('show');
     
-    return { headers, students };
+    buildPage();
+    isProcessing = false;
 }
 
-function updateFileManager() {
-    fileManager.style.display = 'block';
-    addFileArea.style.display = 'block';
-    uploadArea.style.display = 'none';
+/* ========== 页面构建 ========== */
+function buildPage() {
+    const courseCols = headers.filter(h => h.includes('-') || /^\d/.test(h));
+    const rankCol = headers.find(h => h.includes('学分加权平均成绩')) || headers[headers.length - 3];
     
-    const list = document.getElementById('fileList');
-    list.innerHTML = allFiles.map((f, i) => `
-        <div class="file-tag">
-            <span>${f.name}</span>
-            <small>(${f.count}人)</small>
-            <span class="remove" onclick="removeFile(${i})">×</span>
-        </div>
-    `).join('');
-    
-    document.getElementById('totalFiles').textContent = allFiles.length;
-    document.getElementById('totalStudents').textContent = allStudents.length;
-    document.getElementById('dataTime').textContent = new Date().toLocaleString();
-    
-    analysisSection.classList.add('show');
+    // 数据概览
+    document.getElementById('dataSummary').innerHTML = `
+        <h3><span>📋</span> 数据概览</h3>
+        <div class="summary-row"><span>学生总数</span><span>${students.length} 人</span></div>
+        <div class="summary-row"><span>数据列数</span><span>${headers.length} 列</span></div>
+        <div class="summary-row"><span>课程数量</span><span>${courseCols.length} 门</span></div>
+        <div class="summary-row"><span>排名依据</span><span>${rankCol}</span></div>
+    `;
+
+    // 统计卡片
+    let cardHtml = '';
+    courseCols.slice(0, 6).forEach(c => {
+        const scores = students.map(s => Number(s[c])).filter(v => !isNaN(v) && v > 0);
+        if (scores.length < 3) return;
+        const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
+        const max = Math.max(...scores).toFixed(0);
+        const min = Math.min(...scores).toFixed(0);
+        const passRate = ((scores.filter(s => s >= 60).length / scores.length) * 100).toFixed(0);
+        
+        cardHtml += `
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon blue">📚</div>
+                    <h3>${c.length > 20 ? c.slice(0, 18) + '…' : c}</h3>
+                </div>
+                <div class="value">${avg}</div>
+                <div class="meta">
+                    <span>最高 ${max}</span> · <span>最低 ${min}</span> · <span class="${passRate >= 90 ? 'positive' : ''}">及格率 ${passRate}%</span>
+                </div>
+            </div>`;
+    });
+    document.getElementById('statsGrid').innerHTML = cardHtml || '<p style="color: #64748b;">暂无课程数据</p>';
+
+    // 填充下拉框
+    const opts = headers.map(h => `<option value="${h}">${h.length > 30 ? h.slice(0, 28) + '…' : h}</option>`).join('');
+    ['columnSelect', 'xColumn', 'yColumn'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = opts;
+    });
+
+    fillStudentList();
+    renderTable();
+    drawOverviewCharts(courseCols);
+    drawClassCharts();      // 新增：班级分析图表
+    renderTopBottom5();     // 新增：前5后5列表
 }
 
-function removeFile(index) {
-    const file = allFiles[index];
-    allStudents = allStudents.filter(s => s._sourceFile !== file.name);
-    allFiles.splice(index, 1);
-    
-    if (allFiles.length === 0) {
-        clearAllFiles();
-    } else {
-        updateFileManager();
-        buildAnalysis();
-    }
-}
-
-function clearAllFiles() {
-    allStudents = [];
-    allFiles = [];
-    currentHeaders = [];
-    
-    Object.values(charts).forEach(c => c && c.destroy());
-    Object.values(detailCharts).forEach(c => c && c.destroy());
-    charts = {};
-    detailCharts = {};
-    
-    fileManager.style.display = 'none';
-    addFileArea.style.display = 'none';
-    uploadArea.style.display = 'block';
-    analysisSection.classList.remove('show');
-    fileInput.value = '';
-}
-
-/* ========== 构建分析页面 ========== */
-function buildAnalysis() {
-    if (allStudents.length === 0) return;
-    
-    const courseCols = currentHeaders.filter(h => h.includes('-') || /^\d/.test(h));
-    const classCol = currentHeaders.find(h => h.includes('班级')) || '班级';
-    const nameCol = currentHeaders.find(h => h.includes('姓名')) || '姓名';
-    
-    const subjectOpts = courseCols.map(h => `<option value="${h}">${h.length > 25 ? h.slice(0, 22) + '…' : h}</option>`).join('');
-    document.getElementById('subjectSelect').innerHTML = '<option value="">请选择学科</option>' + subjectOpts;
-    
-    const studentOpts = allStudents.map((s, i) => {
-        const name = s[nameCol] || `学生${i+1}`;
-        const cls = s[classCol] || '';
-        return `<option value="${i}">${name}${cls ? ` (${cls})` : ''}</option>`;
-    }).join('');
-    document.getElementById('studentSelect').innerHTML = studentOpts;
-    
-    buildOverview(courseCols, classCol);
-    buildClassAnalysis(courseCols, classCol);
-    buildStudentAnalysis(nameCol, classCol);
-    buildDetailsPage(courseCols, classCol, nameCol); // 新增：构建详细数据页
-    buildFullTable();
-}
-
-/* ========== 综合概览 ========== */
-function buildOverview(courseCols, classCol) {
+/* ========== 概览图表 ========== */
+function drawOverviewCharts(courseCols) {
     const allScores = [];
     courseCols.forEach(c => {
-        allStudents.forEach(s => {
+        students.forEach(s => {
             const v = Number(s[c]);
             if (!isNaN(v) && v > 0) allScores.push(v);
         });
     });
     
-    const avg = allScores.length ? (allScores.reduce((a,b) => a+b, 0) / allScores.length).toFixed(1) : 0;
-    const passRate = allScores.length ? ((allScores.filter(s => s >= 60).length / allScores.length) * 100).toFixed(1) : 0;
-    const excellentRate = allScores.length ? ((allScores.filter(s => s >= 90).length / allScores.length) * 100).toFixed(1) : 0;
-    
-    const classGroups = {};
-    allStudents.forEach(s => {
-        const c = s[classCol] || '未分班';
-        classGroups[c] = (classGroups[c] || 0) + 1;
-    });
-    
-    document.getElementById('overviewStats').innerHTML = `
-        <div class="stat-card">
-            <div class="stat-header"><div class="stat-icon blue">👥</div><h3>学生总数</h3></div>
-            <div class="value">${allStudents.length}</div>
-            <div class="meta">${Object.keys(classGroups).length} 个班级</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-header"><div class="stat-icon green">📊</div><h3>总平均分</h3></div>
-            <div class="value">${avg}</div>
-            <div class="meta">全院平均水平</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-header"><div class="stat-icon purple">✅</div><h3>及格率</h3></div>
-            <div class="value">${passRate}%</div>
-            <div class="meta">${allScores.filter(s => s >= 60).length} 人及格</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-header"><div class="stat-icon orange">🏆</div><h3>优秀率</h3></div>
-            <div class="value">${excellentRate}%</div>
-            <div class="meta">${allScores.filter(s => s >= 90).length} 人优秀</div>
-        </div>
-    `;
-    
-    // 成绩分布折线图
     const ranges = ['0-59', '60-69', '70-79', '80-89', '90-100'];
-    const rangeCounts = ranges.map(r => {
-        const [min, max] = r.split('-').map(x => parseInt(x));
-        return allScores.filter(s => s >= min && s <= max).length;
+    const rangeCounts = [0, 0, 0, 0, 0];
+    allScores.forEach(s => {
+        if (s < 60) rangeCounts[0]++;
+        else if (s < 70) rangeCounts[1]++;
+        else if (s < 80) rangeCounts[2]++;
+        else if (s < 90) rangeCounts[3]++;
+        else rangeCounts[4]++;
     });
-    
-    const ctx1 = document.getElementById('scoreLineChart');
-    if (charts.line) charts.line.destroy();
-    charts.line = new Chart(ctx1, {
+
+    const lineCtx = document.getElementById('scoreLineChart');
+    if (lineChart) lineChart.destroy();
+    lineChart = new Chart(lineCtx, {
         type: 'line',
         data: {
             labels: ranges,
             datasets: [{
-                label: '人数',
+                label: '人数分布',
                 data: rangeCounts,
-                borderColor: '#1e40af',
-                backgroundColor: 'rgba(30, 64, 175, 0.1)',
+                borderColor: '#6366f1',
+                backgroundColor: 'rgba(99, 102, 241, 0.1)',
                 borderWidth: 3,
                 fill: true,
                 tension: 0.4,
+                pointBackgroundColor: '#6366f1',
+                pointBorderColor: '#fff',
+                pointBorderWidth: 2,
                 pointRadius: 6
             }]
         },
@@ -1014,49 +966,54 @@ function buildOverview(courseCols, classCol) {
             }
         }
     });
+
+    const gradeLabels = ['优秀(90+)', '良好(80-89)', '中等(70-79)', '及格(60-69)', '不及格(<60)'];
+    const gradeColors = ['#22c55e', '#0ea5e9', '#6366f1', '#f59e0b', '#ef4444'];
     
-    // 等级占比饼图
-    const ctx2 = document.getElementById('gradePieChart');
-    if (charts.pie) charts.pie.destroy();
-    charts.pie = new Chart(ctx2, {
+    const pieCtx = document.getElementById('gradePieChart');
+    if (pieChart) pieChart.destroy();
+    pieChart = new Chart(pieCtx, {
         type: 'doughnut',
         data: {
-            labels: ['优秀(90+)', '良好(80-89)', '中等(70-79)', '及格(60-69)', '不及格(<60)'],
+            labels: gradeLabels,
             datasets: [{
-                data: rangeCounts.slice().reverse(),
-                backgroundColor: ['#22c55e', '#0ea5e9', '#6366f1', '#f59e0b', '#ef4444'],
-                borderWidth: 0
+                data: rangeCounts,
+                backgroundColor: gradeColors,
+                borderWidth: 0,
+                hoverOffset: 4
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             cutout: '60%',
-            plugins: { legend: { position: 'bottom', labels: { usePointStyle: true } } }
+            plugins: {
+                legend: { position: 'bottom', labels: { padding: 15, usePointStyle: true } }
+            }
         }
     });
-    
-    // 学科平均分柱状图
-    const subjectAvgs = courseCols.slice(0, 10).map(c => {
-        const scores = allStudents.map(s => Number(s[c])).filter(v => !isNaN(v) && v > 0);
-        const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(1) : 0;
-        return { name: c.length > 12 ? c.slice(0, 10) + '…' : c, avg: parseFloat(avg) };
-    }).filter(s => s.avg > 0);
-    
-    const ctx3 = document.getElementById('subjectBarChart');
-    if (charts.bar) charts.bar.destroy();
-    charts.bar = new Chart(ctx3, {
+
+    const courseAvgs = courseCols.map(c => {
+        const scores = students.map(s => Number(s[c])).filter(v => !isNaN(v) && v > 0);
+        const avg = scores.length ? (scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+        return { course: c.length > 15 ? c.slice(0, 12) + '…' : c, avg: avg.toFixed(1) };
+    }).filter(c => c.avg > 0).slice(0, 10);
+
+    const barCtx = document.getElementById('courseBarChart');
+    if (barChart) barChart.destroy();
+    barChart = new Chart(barCtx, {
         type: 'bar',
         data: {
-            labels: subjectAvgs.map(s => s.name),
+            labels: courseAvgs.map(c => c.course),
             datasets: [{
                 label: '平均分',
-                data: subjectAvgs.map(s => s.avg),
-                backgroundColor: subjectAvgs.map((_, i) => {
-                    const colors = ['#1e40af', '#3b82f6', '#0ea5e9', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#64748b'];
-                    return colors[i % colors.length];
+                data: courseAvgs.map(c => c.avg),
+                backgroundColor: courseAvgs.map((_, i) => {
+                    const colors = ['#6366f1', '#0ea5e9', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#64748b', '#84cc16'];
+                    return colors[i % colors.length] + 'cc';
                 }),
-                borderRadius: 6
+                borderRadius: 8,
+                borderSkipped: false
             }]
         },
         options: {
@@ -1071,87 +1028,15 @@ function buildOverview(courseCols, classCol) {
     });
 }
 
-/* ========== 班级分析 ========== */
-function buildClassAnalysis(courseCols, classCol) {
-    const rankCol = currentHeaders.find(h => h.includes(rankColName)) || currentHeaders[currentHeaders.length - 3];
+/* ========== 新增：班级分析图表 ========== */
+function drawClassCharts() {
+    const rankCol = headers.find(h => h.includes('学分加权平均成绩')) || headers[headers.length - 3];
+    const classCol = headers.find(h => h.includes('班级')) || '班级';
+    const courseCols = headers.filter(h => h.includes('-') || /^\d/.test(h));
     
-    const classStats = {};
-    allStudents.forEach(s => {
-        const c = s[classCol] || '未分班';
-        if (!classStats[c]) classStats[c] = { students: [], totalScore: 0, count: 0 };
-        
-        const score = Number(s[rankCol]);
-        if (!isNaN(score) && score > 0) {
-            classStats[c].students.push({ ...s, _score: score });
-            classStats[c].totalScore += score;
-            classStats[c].count++;
-        }
-    });
-    
-    const classRanks = Object.entries(classStats).map(([name, stat]) => ({
-        name,
-        count: stat.count,
-        avg: stat.count ? (stat.totalScore / stat.count).toFixed(2) : 0,
-        passRate: stat.count ? ((stat.students.filter(s => s._score >= 60).length / stat.count) * 100).toFixed(1) : 0
-    })).sort((a, b) => b.avg - a.avg);
-    
-    document.querySelector('#classRankTable tbody').innerHTML = classRanks.map((c, i) => `
-        <tr>
-            <td class="${i < 3 ? 'rank-' + (i+1) : ''}">${i + 1}</td>
-            <td>${c.name}</td>
-            <td>${c.count}</td>
-            <td>${c.avg}</td>
-            <td>${c.passRate}%</td>
-        </tr>
-    `).join('');
-    
-    const warningClasses = classRanks.filter(c => parseFloat(c.avg) < 70 || parseFloat(c.passRate) < 80);
-    document.querySelector('#warningClassTable tbody').innerHTML = warningClasses.map(c => `
-        <tr>
-            <td>${c.name}</td>
-            <td style="color: ${parseFloat(c.avg) < 60 ? '#ef4444' : '#f59e0b'}">${c.avg}</td>
-            <td style="color: ${parseFloat(c.passRate) < 70 ? '#ef4444' : '#f59e0b'}">${(100 - parseFloat(c.passRate)).toFixed(1)}%</td>
-            <td><span style="padding: 4px 12px; background: ${parseFloat(c.avg) < 60 ? '#ef4444' : '#f59e0b'}20; color: ${parseFloat(c.avg) < 60 ? '#ef4444' : '#f59e0b'}; border-radius: 4px; font-size: 0.85em;">${parseFloat(c.avg) < 60 ? '重点关注' : '需关注'}</span></td>
-        </tr>
-    `).join('') || '<tr><td colspan="4" style="text-align:center;color:#64748b;">暂无需要特别关注的班级</td></tr>';
-    
-    // 班级分布堆叠图
-    const classNames = Object.keys(classStats);
-    const ranges = ['90-100', '80-89', '70-79', '60-69', '0-59'];
-    const colors = ['#22c55e', '#0ea5e9', '#6366f1', '#f59e0b', '#ef4444'];
-    
-    const datasets = ranges.map((range, i) => ({
-        label: range,
-        data: classNames.map(name => {
-            const [min, max] = range.split('-').map(x => x === '100' ? 100 : parseInt(x));
-            return classStats[name].students.filter(s => s._score >= min && s._score <= max).length;
-        }),
-        backgroundColor: colors[i],
-        borderRadius: 4
-    }));
-    
-    const ctx = document.getElementById('classDistChart');
-    if (charts.classDist) charts.classDist.destroy();
-    charts.classDist = new Chart(ctx, {
-        type: 'bar',
-        data: { labels: classNames, datasets },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { position: 'top' } },
-            scales: { x: { stacked: true }, y: { stacked: true, beginAtZero: true } }
-        }
-    });
-}
-
-/* ========== 新增：详细数据页构建 ========== */
-function buildDetailsPage(courseCols, classCol, nameCol) {
-    const rankCol = currentHeaders.find(h => h.includes(rankColName)) || currentHeaders[currentHeaders.length - 3];
-    const idCol = currentHeaders.find(h => h.includes('学号')) || '学号';
-    
-    // 1. 班级成绩分布柱状图（详细页版本 - 按班级展示）
+    // 1. 班级成绩分布柱状图
     const classGroups = {};
-    allStudents.forEach(s => {
+    students.forEach(s => {
         const cls = s[classCol] || '未分班';
         if (!classGroups[cls]) classGroups[cls] = [];
         const score = Number(s[rankCol]);
@@ -1173,9 +1058,9 @@ function buildDetailsPage(courseCols, classCol, nameCol) {
         borderRadius: 4
     }));
     
-    const ctx1 = document.getElementById('detailClassDistChart');
-    if (detailCharts.classDist) detailCharts.classDist.destroy();
-    detailCharts.classDist = new Chart(ctx1, {
+    const ctx1 = document.getElementById('classDistChart');
+    if (classDistChart) classDistChart.destroy();
+    classDistChart = new Chart(ctx1, {
         type: 'bar',
         data: {
             labels: classNames,
@@ -1196,21 +1081,21 @@ function buildDetailsPage(courseCols, classCol, nameCol) {
     
     // 2. 班级学科平均得分率饼图
     const subjectRates = courseCols.map(c => {
-        const scores = allStudents.map(s => Number(s[c])).filter(v => !isNaN(v) && v > 0);
+        const scores = students.map(s => Number(s[c])).filter(v => !isNaN(v) && v > 0);
         if (scores.length === 0) return null;
         const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
         return { subject: c.length > 15 ? c.slice(0, 12) + '…' : c, rate: avg };
     }).filter(x => x !== null).slice(0, 8);
     
-    const ctx2 = document.getElementById('detailSubjectRateChart');
-    if (detailCharts.subjectRate) detailCharts.subjectRate.destroy();
-    detailCharts.subjectRate = new Chart(ctx2, {
+    const ctx2 = document.getElementById('subjectRateChart');
+    if (subjectRateChart) subjectRateChart.destroy();
+    subjectRateChart = new Chart(ctx2, {
         type: 'doughnut',
         data: {
             labels: subjectRates.map(s => s.subject),
             datasets: [{
                 data: subjectRates.map(s => s.rate.toFixed(1)),
-                backgroundColor: ['#1e40af', '#3b82f6', '#0ea5e9', '#22c55e', '#f59e0b', '#8b5cf6', '#ec4899', '#14b8a6'],
+                backgroundColor: ['#6366f1', '#0ea5e9', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6'],
                 borderWidth: 0,
                 hoverOffset: 4
             }]
@@ -1229,176 +1114,302 @@ function buildDetailsPage(courseCols, classCol, nameCol) {
             }
         }
     });
+}
+
+/* ========== 新增：渲染前5后5列表 ========== */
+function renderTopBottom5() {
+    const rankCol = headers.find(h => h.includes('学分加权平均成绩')) || headers[headers.length - 3];
+    const nameCol = headers.find(h => h.includes('姓名')) || headers[3];
+    const idCol = headers.find(h => h.includes('学号')) || headers[2];
     
-    // 3. 班级前五名 & 后五名（按班级分组展示）
-    const classStudentGroups = {};
-    allStudents.forEach(s => {
-        const cls = s[classCol] || '未分班';
-        if (!classStudentGroups[cls]) classStudentGroups[cls] = [];
-        const score = Number(s[rankCol]);
-        if (!isNaN(score) && score > 0) {
-            classStudentGroups[cls].push({
-                name: s[nameCol] || '-',
-                id: s[idCol] || '-',
-                score: score
-            });
-        }
-    });
+    const sorted = [...students].map(s => ({
+        ...s,
+        _score: Number(s[rankCol]) || 0
+    })).sort((a, b) => b._score - a._score);
     
-    // 合并所有班级的前5和后5，或者显示总体前5后5
-    // 这里显示总体前5后5（跨班级）
-    const allRanked = [...allStudents].map(s => ({
-        name: s[nameCol] || '-',
-        id: s[idCol] || '-',
-        score: Number(s[rankCol]) || 0
-    })).sort((a, b) => b.score - a.score);
-    
-    const top5 = allRanked.slice(0, 5);
-    const bottom5 = allRanked.slice(-5).reverse();
+    const top5 = sorted.slice(0, 5);
+    const bottom5 = sorted.slice(-5).reverse();
     
     // 渲染前5
     document.querySelector('#top5Table tbody').innerHTML = top5.map((s, i) => `
         <tr>
             <td class="${i < 3 ? 'rank-' + (i+1) : ''}">${i + 1}</td>
-            <td>${s.name}</td>
-            <td>${s.id}</td>
-            <td style="color: #22c55e; font-weight: 600;">${s.score.toFixed(2)}</td>
+            <td>${s[nameCol] || '-'}</td>
+            <td>${s[idCol] || '-'}</td>
+            <td style="color: #22c55e; font-weight: 600;">${s._score.toFixed(2)}</td>
         </tr>
     `).join('');
     
     // 渲染后5
-    const totalCount = allRanked.length;
     document.querySelector('#bottom5Table tbody').innerHTML = bottom5.map((s, i) => `
         <tr>
-            <td style="color: #ef4444; font-weight: 700;">${totalCount - 4 + i}</td>
-            <td>${s.name}</td>
-            <td>${s.id}</td>
-            <td style="color: #ef4444; font-weight: 600;">${s.score.toFixed(2)}</td>
+            <td style="color: #ef4444; font-weight: 700;">${sorted.length - 4 + i}</td>
+            <td>${s[nameCol] || '-'}</td>
+            <td>${s[idCol] || '-'}</td>
+            <td style="color: #ef4444; font-weight: 600;">${s._score.toFixed(2)}</td>
         </tr>
     `).join('');
 }
 
-/* ========== 学科分析 ========== */
-function analyzeSubject() {
-    const subject = document.getElementById('subjectSelect').value;
-    if (!subject) return;
+/* ========== 列统计分析 ========== */
+function analyzeColumn() {
+    const col = document.getElementById('columnSelect').value;
+    const values = students.map(s => s[col]);
+    const nums = values.map(v => Number(v)).filter(v => !isNaN(v) && v !== 0);
     
-    const scores = allStudents.map(s => Number(s[subject])).filter(v => !isNaN(v) && v > 0);
-    const avg = scores.length ? (scores.reduce((a,b) => a+b, 0) / scores.length).toFixed(2) : 0;
-    const max = scores.length ? Math.max(...scores).toFixed(1) : 0;
-    const min = scores.length ? Math.min(...scores).toFixed(1) : 0;
-    const std = scores.length ? Math.sqrt(scores.reduce((a,b) => a + Math.pow(b - parseFloat(avg), 2), 0) / scores.length).toFixed(2) : 0;
-    
-    const ranges = [[0,60,'不及格'], [60,70,'及格'], [70,80,'中等'], [80,90,'良好'], [90,100,'优秀']];
-    const dist = ranges.map(([minR, maxR, label]) => ({
-        label,
-        count: scores.filter(s => s >= minR && s < maxR).length,
-        pct: scores.length ? ((scores.filter(s => s >= minR && s < maxR).length / scores.length) * 100).toFixed(1) : 0
-    }));
-    
-    document.getElementById('subjectDetail').innerHTML = `
-        <div class="stats-grid">
-            <div class="stat-card"><div class="stat-header"><div class="stat-icon blue">📊</div><h3>平均分</h3></div><div class="value">${avg}</div></div>
-            <div class="stat-card"><div class="stat-header"><div class="stat-icon green">🏆</div><h3>最高分</h3></div><div class="value">${max}</div></div>
-            <div class="stat-card"><div class="stat-header"><div class="stat-icon orange">⚠️</div><h3>最低分</h3></div><div class="value">${min}</div></div>
-            <div class="stat-card"><div class="stat-header"><div class="stat-icon purple">📈</div><h3>标准差</h3></div><div class="value">${std}</div></div>
-        </div>
-        <div class="chart-card" style="margin-top: 20px;">
-            <h4>分数段分布</h4>
-            <div class="summary-card" style="margin: 0;">
-                ${dist.map(d => `
-                    <div class="summary-row">
-                        <span>${d.label}</span>
-                        <span>${d.count} 人 (${d.pct}%)</span>
-                    </div>
+    if (nums.length === 0) {
+        const freq = {};
+        values.forEach(v => { freq[v] = (freq[v] || 0) + 1; });
+        const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]).slice(0, 10);
+        
+        document.getElementById('columnAnalysis').innerHTML = `
+            <div class="summary-card">
+                <h3><span>📝</span> ${col} - 文本分布</h3>
+                ${sorted.map(([k, v]) => `
+                    <div class="summary-row"><span>${k || '(空)'}</span><span>${v} 次 (${(v/students.length*100).toFixed(1)}%)</span></div>
                 `).join('')}
+            </div>`;
+        return;
+    }
+
+    const avg = nums.reduce((a, b) => a + b, 0) / nums.length;
+    const max = Math.max(...nums);
+    const min = Math.min(...nums);
+    const std = Math.sqrt(nums.reduce((a, b) => a + Math.pow(b - avg, 2), 0) / nums.length);
+    
+    const ranges = [[0, 60, '不及格', '#ef4444'], [60, 70, '及格', '#f59e0b'], [70, 80, '中等', '#0ea5e9'], 
+                   [80, 90, '良好', '#22c55e'], [90, 100, '优秀', '#6366f1']];
+    const dist = ranges.map(([minR, maxR, label, color]) => {
+        const count = nums.filter(n => n >= minR && n < maxR).length;
+        const pct = (count / nums.length * 100).toFixed(1);
+        return { label, count, pct, color };
+    });
+
+    document.getElementById('columnAnalysis').innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon blue">📊</div><h3>平均值</h3></div>
+                <div class="value">${avg.toFixed(2)}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon green">🏆</div><h3>最高分</h3></div>
+                <div class="value">${max.toFixed(1)}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon orange">⚠️</div><h3>最低分</h3></div>
+                <div class="value">${min.toFixed(1)}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-header"><div class="stat-icon purple">📈</div><h3>标准差</h3></div>
+                <div class="value">${std.toFixed(2)}</div>
             </div>
         </div>
-    `;
+        <div class="summary-card" style="margin-top: 24px;">
+            <h3><span>📊</span> 分数段分布</h3>
+            ${dist.map(d => `
+                <div class="summary-row">
+                    <span style="display:flex;align-items:center;gap:8px;">
+                        <span style="width:12px;height:12px;border-radius:50%;background:${d.color};"></span>
+                        ${d.label}
+                    </span>
+                    <span>${d.count} 人 (${d.pct}%)</span>
+                </div>
+            `).join('')}
+        </div>`;
 }
 
-/* ========== 学生分析 ========== */
-function buildStudentAnalysis(nameCol, classCol) {
-    const rankCol = currentHeaders.find(h => h.includes(rankColName)) || currentHeaders[currentHeaders.length - 3];
+/* ========== 学生列表填充 ========== */
+function fillStudentList() {
+    const sel = document.getElementById('studentSelect');
+    if (!sel) return;
+    const nameCol = headers.find(h => h.includes('姓名')) || headers[3];
+    const idCol = headers.find(h => h.includes('学号')) || headers[2];
     
-    const sorted = [...allStudents].map(s => ({
-        ...s,
-        _score: Number(s[rankCol]) || 0
-    })).sort((a, b) => b._score - a._score);
-    
-    const top10 = sorted.slice(0, 10);
-    document.querySelector('#top10Table tbody').innerHTML = top10.map((s, i) => `
-        <tr>
-            <td class="${i < 3 ? 'rank-' + (i+1) : ''}">${i + 1}</td>
-            <td>${s[nameCol] || '-'}</td>
-            <td>${s[classCol] || '-'}</td>
-            <td style="color: ${i < 3 ? '#f59e0b' : '#1e40af'}; font-weight: 600;">${s._score.toFixed(2)}</td>
-        </tr>
-    `).join('');
+    sel.innerHTML = students.map((s, i) => {
+        const name = s[nameCol] || `学生${i+1}`;
+        const id = s[idCol] || '';
+        return `<option value="${i}">${name}${id ? ` (${id})` : ''}</option>`;
+    }).join('');
 }
 
-function showStudentProfile() {
+/* ========== 学生个人分析 ========== */
+function analyzeStudent() {
     const idx = document.getElementById('studentSelect').value;
-    const st = allStudents[idx];
+    const st = students[idx];
     if (!st) return;
-    
-    const courseCols = currentHeaders.filter(h => h.includes('-') || /^\d/.test(h));
-    const nameCol = currentHeaders.find(h => h.includes('姓名')) || '姓名';
-    const classCol = currentHeaders.find(h => h.includes('班级')) || '班级';
-    const rankCol = currentHeaders.find(h => h.includes(rankColName)) || currentHeaders[currentHeaders.length - 3];
-    
+
+    const courseCols = headers.filter(h => h.includes('-') || /^\d/.test(h));
     const scores = courseCols.map(c => {
         const v = Number(st[c]);
-        return { course: c, score: isNaN(v) ? 0 : v };
+        return { course: c, score: isNaN(v) ? 0 : v, raw: st[c] };
     }).filter(s => s.score > 0);
+
+    if (scores.length === 0) {
+        document.getElementById('studentAnalysis').innerHTML = '<p style="color: #64748b;">该学生暂无成绩数据</p>';
+        return;
+    }
+
+    const avg = (scores.reduce((a, b) => a + b.score, 0) / scores.length).toFixed(2);
+    const max = Math.max(...scores.map(s => s.score));
+    const min = Math.min(...scores.map(s => s.score));
     
-    const avg = scores.length ? (scores.reduce((a,b) => a+b.score, 0) / scores.length).toFixed(2) : 0;
-    const max = scores.length ? Math.max(...scores.map(s => s.score)) : 0;
-    const min = scores.length ? Math.min(...scores.map(s => s.score)) : 0;
-    
-    const allScores = allStudents.map(s => Number(s[rankCol])).filter(v => !isNaN(v) && v > 0).sort((a,b) => b-a);
+    const rankCol = headers.find(h => h.includes('学分加权平均成绩')) || headers[headers.length - 3];
+    const allScores = students.map(s => Number(s[rankCol])).filter(v => !isNaN(v) && v > 0).sort((a, b) => b - a);
     const myScore = Number(st[rankCol]);
     const rank = allScores.indexOf(myScore) + 1;
-    
-    document.getElementById('studentDetailCard').innerHTML = `
-        <div style="padding: 20px; background: rgba(30, 64, 175, 0.05); border-radius: 12px; margin-bottom: 16px;">
-            <h3 style="font-size: 1.3em; color: #1e40af; margin-bottom: 8px;">${st[nameCol] || '未知'}</h3>
-            <p style="color: #64748b; font-size: 0.9em;">${st[classCol] || '-'} | 全院排名：第 ${rank} 名 / ${allStudents.length} 人</p>
+
+    const nameCol = headers.find(h => h.includes('姓名')) || '姓名';
+    const idCol = headers.find(h => h.includes('学号')) || '学号';
+    const classCol = headers.find(h => h.includes('班级')) || '班级';
+
+    let html = `
+        <div class="profile-header">
+            <div class="profile-avatar">👤</div>
+            <div class="profile-info">
+                <h3>${st[nameCol] || '未知'}</h3>
+                <p>学号：${st[idCol] || '-'} | 班级：${st[classCol] || '-'} | 排名：第 ${rank} / ${students.length}</p>
+            </div>
         </div>
-        <div class="profile-stats" style="margin-bottom: 16px;">
+        <div class="profile-stats">
             <div class="profile-stat"><div class="number">${avg}</div><div class="label">平均分</div></div>
             <div class="profile-stat"><div class="number">${max}</div><div class="label">最高分</div></div>
             <div class="profile-stat"><div class="number">${min}</div><div class="label">最低分</div></div>
             <div class="profile-stat"><div class="number">${scores.length}</div><div class="label">课程数</div></div>
         </div>
-        <div class="table-wrapper">
+        <div class="table-wrapper" style="margin-bottom: 24px;">
             <table class="data-table">
                 <thead><tr><th>课程</th><th>成绩</th><th>等级</th></tr></thead>
                 <tbody>
                     ${scores.map(s => {
                         const level = s.score >= 90 ? '优秀' : s.score >= 80 ? '良好' : s.score >= 70 ? '中等' : s.score >= 60 ? '及格' : '不及格';
                         const color = s.score >= 90 ? '#22c55e' : s.score >= 80 ? '#0ea5e9' : s.score >= 70 ? '#6366f1' : s.score >= 60 ? '#f59e0b' : '#ef4444';
-                        return `<tr><td>${s.course.length > 20 ? s.course.slice(0, 18) + '…' : s.course}</td><td style="color:${color};font-weight:600;">${s.score}</td><td>${level}</td></tr>`;
+                        return `<tr><td>${s.course.length > 25 ? s.course.slice(0, 23) + '…' : s.course}</td><td style="color:${color};font-weight:600;">${s.score}</td><td>${level}</td></tr>`;
                     }).join('')}
                 </tbody>
             </table>
         </div>
+        <div class="chart-card">
+            <div class="chart-wrapper">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </div>
     `;
+    
+    document.getElementById('studentAnalysis').innerHTML = html;
+
+    const ctx = document.getElementById('radarChart');
+    if (radarInst) radarInst.destroy();
+    
+    const shortLabels = scores.map(s => s.course.length > 10 ? s.course.slice(0, 8) + '…' : s.course);
+    radarInst = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: shortLabels,
+            datasets: [{
+                label: st[nameCol] + ' 成绩分布',
+                data: scores.map(s => s.score),
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                borderColor: '#6366f1',
+                borderWidth: 2,
+                pointBackgroundColor: '#6366f1',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: '#6366f1'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { stepSize: 20, backdropColor: 'transparent' },
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    angleLines: { color: 'rgba(0,0,0,0.05)' }
+                }
+            },
+            plugins: {
+                legend: { position: 'bottom', labels: { padding: 20, usePointStyle: true } }
+            }
+        }
+    });
 }
 
-/* ========== 完整数据表 ========== */
-function buildFullTable() {
-    const thead = document.getElementById('fullTableHead');
-    const tbody = document.getElementById('fullTableBody');
+/* ========== 可视化 ========== */
+function createChart() {
+    const type = document.getElementById('chartType').value;
+    const xCol = document.getElementById('xColumn').value;
+    const yCol = document.getElementById('yColumn').value;
     
-    thead.innerHTML = `<tr>${currentHeaders.map(h => `<th>${h}</th>`).join('')}</tr>`;
+    const data = students.map(s => ({
+        x: s[xCol],
+        y: Number(s[yCol])
+    })).filter(d => d.x != null && !isNaN(d.y) && d.y > 0);
+
+    if (data.length === 0) {
+        alert('无有效数据，请更换坐标轴');
+        return;
+    }
+
+    const limited = data.slice(0, 30);
+    const labels = limited.map(d => String(d.x).length > 15 ? String(d.x).slice(0, 13) + '…' : d.x);
+    const values = limited.map(d => d.y);
+
+    const ctx = document.getElementById('dataChart');
+    if (chartInst) chartInst.destroy();
+
+    const colors = ['#6366f1', '#0ea5e9', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6'];
     
-    const rows = allStudents.slice(0, 200).map(s => 
-        `<tr>${currentHeaders.map(h => `<td>${s[h] ?? ''}</td>`).join('')}</tr>`
+    chartInst = new Chart(ctx, {
+        type,
+        data: {
+            labels,
+            datasets: [{
+                label: yCol,
+                data: values,
+                backgroundColor: type === 'pie' || type === 'doughnut' 
+                    ? values.map((_, i) => colors[i % colors.length] + '80')
+                    : '#6366f180',
+                borderColor: type === 'pie' || type === 'doughnut'
+                    ? values.map((_, i) => colors[i % colors.length])
+                    : '#6366f1',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: type === 'radar' || type === 'line'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { 
+                    display: type === 'pie' || type === 'doughnut' || type === 'radar',
+                    position: 'bottom',
+                    labels: { padding: 20, usePointStyle: true }
+                }
+            },
+            scales: type !== 'pie' && type !== 'doughnut' && type !== 'radar' ? {
+                y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                x: { grid: { display: false } }
+            } : {}
+        }
+    });
+}
+
+/* ========== 详细表格 ========== */
+function renderTable() {
+    const thead = document.getElementById('tableHead');
+    const tbody = document.getElementById('tableBody');
+    
+    thead.innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+    
+    const rows = students.slice(0, 100).map(s => 
+        `<tr>${headers.map(h => `<td>${s[h] ?? ''}</td>`).join('')}</tr>`
     ).join('');
     
-    tbody.innerHTML = rows + (allStudents.length > 200 
-        ? `<tr><td colspan="${currentHeaders.length}" style="text-align:center;color:#64748b;padding:20px;">… 还有 ${allStudents.length - 200} 行数据 …</td></tr>` 
+    tbody.innerHTML = rows + (students.length > 100 
+        ? `<tr><td colspan="${headers.length}" style="text-align:center;color:#64748b;padding:20px;">… 还有 ${students.length - 100} 行数据 …</td></tr>` 
         : '');
 }
 
@@ -1415,13 +1426,44 @@ function switchTab(name, btn) {
 
 /* ========== 导出 ========== */
 function exportToExcel() {
-    const ws = XLSX.utils.json_to_sheet(allStudents.map(s => {
-        const { _sourceFile, _rowIndex, ...data } = s;
-        return { 数据来源: _sourceFile, ...data };
+    const ws = XLSX.utils.json_to_sheet(students.map(s => {
+        const { _rowIndex, ...data } = s;
+        return data;
     }));
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "学情分析汇总");
-    XLSX.writeFile(wb, `吉林大学外文学情分析_${new Date().toISOString().slice(0, 10)}.xlsx`);
+    XLSX.utils.book_append_sheet(wb, ws, "学生成绩");
+    XLSX.writeFile(wb, `成绩分析_${new Date().toISOString().slice(0, 10)}.xlsx`);
+}
+
+/* ========== 重新上传 ========== */
+function resetAnalysis() {
+    // 销毁所有图表
+    [chartInst, radarInst, lineChart, pieChart, barChart, classDistChart, subjectRateChart].forEach(chart => {
+        if (chart) { chart.destroy(); }
+    });
+    chartInst = radarInst = lineChart = pieChart = barChart = classDistChart = subjectRateChart = null;
+    
+    students = [];
+    rawMatrix = [];
+    headers = [];
+    
+    fileInput.value = '';
+    fileInfo.classList.remove('show');
+    fileInfo.innerHTML = '';
+    analysisSec.classList.remove('show');
+    uploadCard.style.display = 'block';
+    
+    document.getElementById('statsGrid').innerHTML = '';
+    document.getElementById('columnAnalysis').innerHTML = '';
+    document.getElementById('studentAnalysis').innerHTML = '';
+    document.querySelector('#top5Table tbody').innerHTML = '';
+    document.querySelector('#bottom5Table tbody').innerHTML = '';
+    document.getElementById('fileName').textContent = '';
+    
+    document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', i === 0));
+    document.querySelectorAll('.tab-content').forEach((c, i) => c.classList.toggle('active', i === 0));
+    
+    isProcessing = false;
 }
 </script>
 </body>
